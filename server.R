@@ -3,7 +3,10 @@ require(shinythemes)
 
 
 server <- function(input, output) {
- 
+
+
+# File imported -----------------------------------------------------------
+
   files <- reactive({
     files <- input$files
     files$datapath <- gsub("\\\\", "/", files$datapath)
@@ -40,6 +43,11 @@ server <- function(input, output) {
       })
     }
   })
- 
+
+# Query new photos
+
+
+# Render new photos
+
   
 } # END Server
