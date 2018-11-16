@@ -50,15 +50,19 @@ ui <- fluidPage(theme = shinytheme("flatly"),
       tabsetPanel(
         tabPanel("Image Search",
                  br(),
-                 sidebarLayout(
-                   sidebarPanel(
-                     fileInput(inputId = 'files', 
-                               label = 'Select an Image',
-                               multiple = TRUE,
-                               accept=c('image/png', 'image/jpeg'))
+                 fluidRow(
+                   column(
+                     2,
+                     wellPanel(
+                       fileInput(inputId = 'files', 
+                                 label = 'Select an Image',
+                                 multiple = TRUE,
+                                 accept=c('image/png', 'image/jpeg')) 
+                     )
+                     
                    ),
-                   mainPanel(
-                     tableOutput('files'),
+                   column(
+                     10,
                      uiOutput('images')
                    )
                  )

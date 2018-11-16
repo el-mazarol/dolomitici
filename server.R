@@ -4,14 +4,11 @@ require(shinythemes)
 
 server <- function(input, output) {
  
-  output$files <- renderTable(input$files)
-  
   files <- reactive({
     files <- input$files
     files$datapath <- gsub("\\\\", "/", files$datapath)
     files
   })
-  
   
   output$images <- renderUI({
     if(is.null(input$files)) return(NULL)
@@ -44,4 +41,5 @@ server <- function(input, output) {
     }
   })
  
-}
+  
+} # END Server
