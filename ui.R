@@ -57,7 +57,7 @@ ui <- fluidPage(theme = shinytheme("flatly"),
                           # )
                    ),
                    column(10,
-                          DT::dataTableOutput('df_log')
+                          imageOutput("preImage")
                    ),
                    column(1)
                  )
