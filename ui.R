@@ -58,7 +58,10 @@ ui <- fluidPage(theme = shinytheme("flatly"),
                                  label = 'Select an Image',
                                  multiple = TRUE,
                                  accept=c('image/png', 'image/jpeg')) 
-                     )
+                     ),
+                     actionButton("bt_start", "Start",
+                                  class="btn-primary")
+                     
                      
                    ),
                    column(

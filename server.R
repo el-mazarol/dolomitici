@@ -7,7 +7,7 @@ server <- function(input, output) {
 
 # File imported -----------------------------------------------------------
 
-  files <- reactive({
+  files <- eventReactive(input$bt_start, {
     files <- input$files
     files$datapath <- gsub("\\\\", "/", files$datapath)
     files
