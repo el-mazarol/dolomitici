@@ -120,14 +120,27 @@ server <- function(input, output) {
       ls_names[[i]] <- as.character(ml[[i]][[3]]$str)
     }
     
-    
+
     files <- list()
     
-    files[[1]] <- tempfile()
-    download.file("https://cert.provinz.bz.it/services/kksSearch/image?file=LAV039-01048.jpg&mus=LAV", destfile = files[[1]])
-
-    files[[2]] <- tempfile()
-    download.file("https://cert.provinz.bz.it/services/kksSearch/image?file=LAV039-01049.jpg&mus=LAV", destfile = files[[2]])
+    
+    for(j in 1:len){
+      
+      files[[j]] <- tempfile()
+      download.file(paste("https://cert.provinz.bz.it/services/kksSearch/image?file=",
+                          ls_names[[j]], "&mus=LAV", sep=""), destfile = files[[j]])
+      print(j)
+    }
+    
+    print("ciao")
+        
+    # files <- list()
+    # 
+    # files[[1]] <- tempfile()
+    # download.file("https://cert.provinz.bz.it/services/kksSearch/image?file=LAV039-01048.jpg&mus=LAV", destfile = files[[1]])
+    # 
+    # files[[2]] <- tempfile()
+    # download.file("https://cert.provinz.bz.it/services/kksSearch/image?file=LAV039-01049.jpg&mus=LAV", destfile = files[[2]])
     
     #files <- data.frame(datapath=files)
     
