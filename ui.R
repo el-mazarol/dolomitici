@@ -66,7 +66,9 @@ ui <- fluidPage(theme = shinytheme("flatly"),
                    ),
                    column(
                      5,
-                     imageOutput('inputImage')
+                     imageOutput('inputImage'),
+                     h3("Google Vision Object Description"),
+                     tableOutput("res")
                    ),
                    column(
                      5,
