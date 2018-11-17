@@ -65,7 +65,11 @@ ui <- fluidPage(theme = shinytheme("flatly"),
                      
                    ),
                    column(
-                     10,
+                     5,
+                     imageOutput('inputImage')
+                   ),
+                   column(
+                     5,
                      uiOutput('images')
                      #imageOutput('images')
                    )

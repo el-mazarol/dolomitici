@@ -7,6 +7,23 @@ server <- function(input, output) {
 
 # File imported -----------------------------------------------------------
 
+# Query new photos
+  
+# Render new photos
+  
+  output$inputImage <- renderImage({
+    # When input$n is 3, filename is ./images/image3.jpeg
+    filename <- "www/esempio.jpeg"
+    
+    # normalizePath(file.path('./images',
+    #                                   paste('image', input$n, '.jpeg', sep='')))
+    
+    # Return a list containing the filename and alt text
+    list(src = filename,
+         alt = paste("Image number"))
+    
+  }, deleteFile = FALSE)
+  
   files <- eventReactive(input$bt_start, {
     #files <- input$files
     #files$datapath <- gsub("\\\\", "/", files$datapath)
@@ -75,10 +92,6 @@ server <- function(input, output) {
     }
   })
 
-# Query new photos
-
-
-# Render new photos
 
   
 } # END Server
