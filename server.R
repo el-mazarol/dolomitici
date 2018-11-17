@@ -90,6 +90,10 @@ server <- function(input, output) {
       print(txt)
       dff <<- detectObject(txt)
       
+      key <<- detectObject(txt)
+      
+      #save(key, file="key.RData")
+      
       #print(dff)
       
       #return(dff[, c("description", "score")])
@@ -101,8 +105,9 @@ server <- function(input, output) {
 # Render new photos -----------------------------------------------------------
   
   files <- eventReactive(input$bt_start, {
-    #files <- input$files
-    #files$datapath <- gsub("\\\\", "/", files$datapath)
+    
+    
+    
     
     files <- list()
     
