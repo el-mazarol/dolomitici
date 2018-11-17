@@ -7,22 +7,28 @@ server <- function(input, output) {
 
 # File imported -----------------------------------------------------------
 
-# Query new photos
-  
-# Render new photos
+
   
   output$inputImage <- renderImage({
     # When input$n is 3, filename is ./images/image3.jpeg
-    filename <- "www/esempio.jpeg"
+    if(is.null(input$files)) return(NULL)
+    filename <- input$files
     
     # normalizePath(file.path('./images',
     #                                   paste('image', input$n, '.jpeg', sep='')))
     
     # Return a list containing the filename and alt text
-    list(src = filename,
+    list(src = filename$datapath,
          alt = paste("Image number"))
     
+    # filename <- filename$datapath
+    # filename
+    
   }, deleteFile = FALSE)
+  
+# Query new photos -----------------------------------------------------------
+  
+# Render new photos -----------------------------------------------------------
   
   files <- eventReactive(input$bt_start, {
     #files <- input$files
@@ -44,7 +50,7 @@ server <- function(input, output) {
   })
   
   output$images <- renderUI({
-    #if(is.null(input$files)) return(NULL)
+    if(is.null(input$files)) return(NULL)
 
     # ls <- list
     # ls[[1]] <- list(src = files()[[1]])
