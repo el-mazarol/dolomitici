@@ -11,8 +11,13 @@ server <- function(input, output) {
     #files <- input$files
     #files$datapath <- gsub("\\\\", "/", files$datapath)
     
-    files <- tempfile()
-    download.file("https://cert.provinz.bz.it/services/kksSearch/image?file=LAV039-01048.jpg&mus=LAV", destfile = files)
+    files <- list()
+    
+    files[[1]] <- tempfile()
+    download.file("https://cert.provinz.bz.it/services/kksSearch/image?file=LAV039-01048.jpg&mus=LAV", destfile = files[[1]])
+    
+    files[[2]] <- tempfile()
+    download.file("https://cert.provinz.bz.it/services/kksSearch/image?file=LAV039-01049.jpg&mus=LAV", destfile = files[[2]])
     
     #files <- data.frame(datapath=files)
     
@@ -21,40 +26,54 @@ server <- function(input, output) {
     files
   })
   
-  # output$images <- renderUI({
-  #   if(is.null(input$files)) return(NULL)
-  #   image_output_list <- 
-  #     lapply(1:nrow(files()),
-  #            function(i)
-  #            {
-  #              imagename = paste0("image", i)
-  #              imageOutput(imagename)
-  #            })
+  output$images <- renderUI({
+    #if(is.null(input$files)) return(NULL)
+
+    # ls <- list
+    # ls[[1]] <- list(src = files()[[1]])
+    # ls[[2]] <- list(src = files()[[2]])
+    # 
+    # imageOutput(ls)
+
+    image_output_list <-
+      #lapply(1:nrow(files()),
+      lapply(1:length(files()),       
+             function(i)
+             {
+               imagename = paste0("image", i)
+               imageOutput(imagename)
+             })
+
+    do.call(tagList, image_output_list)
+  })
+  
+  # output$images <- renderImage({
+  #   ls <- list
+  #   ls[[1]] <- list(src = files()[[1]])
+  #   ls[[2]] <- list(src = files()[[2]])
   #   
-  #   do.call(tagList, image_output_list)
-  # })
+  #   ls
+  #   
+  # }, deleteFile = FALSE)
   
-  output$images <- renderImage({
-    list(src = files())
-  }, deleteFile = FALSE)
-  
-  # observe({
-  #   #if(is.null(input$files)) return(NULL)
-  #   for (i in 1:nrow(files()))
-  #   {
-  #     print(i)
-  #     local({
-  #       my_i <- i
-  #       imagename = paste0("image", my_i)
-  #       print(imagename)
-  #       output[[imagename]] <- 
-  #         renderImage({
-  #           list(src = files()$datapath[my_i],
-  #                alt = "Image failed to render")
-  #         }, deleteFile = FALSE)
-  #     })
-  #   }
-  # })
+  observe({
+    #if(is.null(input$files)) return(NULL)
+    for (i in 1:length(files()))
+    {
+      print(i)
+      local({
+        my_i <- i
+        imagename = paste0("image", my_i)
+        print(imagename)
+        output[[imagename]] <-
+          renderImage({
+            #list(src = files()$datapath[my_i],
+            list(src = files()[[my_i]],
+                 alt = "Image failed to render")
+          }, deleteFile = FALSE)
+      })
+    }
+  })
 
 # Query new photos
 
