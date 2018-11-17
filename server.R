@@ -11,15 +11,24 @@ server <- function(input, output) {
   
   output$inputImage <- renderImage({
     # When input$n is 3, filename is ./images/image3.jpeg
-    if(is.null(input$files)) return(NULL)
-    filename <- input$files
+    if(is.null(input$files)){
+      filename <- "www/img_tmp.png"
+      # Return a list containing the filename and alt text
+      list(src = filename,
+           alt = paste("Image number"))
+    } else {
+      filename <- input$files
+      
+      # Return a list containing the filename and alt text
+      list(src = filename$datapath,
+           alt = paste("Image number"))
+    }
+    
     
     # normalizePath(file.path('./images',
     #                                   paste('image', input$n, '.jpeg', sep='')))
     
-    # Return a list containing the filename and alt text
-    list(src = filename$datapath,
-         alt = paste("Image number"))
+    
     
     # filename <- filename$datapath
     # filename
@@ -80,7 +89,7 @@ server <- function(input, output) {
   # }, deleteFile = FALSE)
   
   observe({
-    #if(is.null(input$files)) return(NULL)
+    if(is.null(input$files)) return(NULL)
     for (i in 1:length(files()))
     {
       print(i)
