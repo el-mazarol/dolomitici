@@ -4,6 +4,8 @@ require(plyr)
 require(httr)
 require(googleAuthR)
 require(RCurl)
+require(xml2)
+require(jsonlite)
 
 
 
@@ -106,16 +108,26 @@ server <- function(input, output) {
   
   files <- eventReactive(input$bt_start, {
     
+    doc <- xml2::read_xml(paste("http://daten.buergernetz.bz.it/services/kksSearch/collect/lichtbild/select?q=BE_it:(", key, ")%20", "(", key, ")", sep=""))
     
+    nodeset <- xml2::xml_children(doc) # get top level nodeset
+    ml <- xml2::as_list(nodeset[[2]])
+    
+    #as.character(ml[[1]][[3]]$str)
+    len <- length(ml)
+    ls_names <- list()
+    for(i in 1:len){
+      ls_names[[i]] <- as.character(ml[[i]][[3]]$str)
+    }
     
     
     files <- list()
     
-    files[[1]] <- tempfile()
-    download.file("https://cert.provinz.bz.it/services/kksSearch/image?file=LAV039-01048.jpg&mus=LAV", destfile = files[[1]])
-    
-    files[[2]] <- tempfile()
-    download.file("https://cert.provinz.bz.it/services/kksSearch/image?file=LAV039-01049.jpg&mus=LAV", destfile = files[[2]])
+    # files[[1]] <- tempfile()
+    # download.file("https://cert.provinz.bz.it/services/kksSearch/image?file=LAV039-01048.jpg&mus=LAV", destfile = files[[1]])
+    # 
+    # files[[2]] <- tempfile()
+    # download.file("https://cert.provinz.bz.it/services/kksSearch/image?file=LAV039-01049.jpg&mus=LAV", destfile = files[[2]])
     
     #files <- data.frame(datapath=files)
     
