@@ -123,11 +123,11 @@ server <- function(input, output) {
     
     files <- list()
     
-    # files[[1]] <- tempfile()
-    # download.file("https://cert.provinz.bz.it/services/kksSearch/image?file=LAV039-01048.jpg&mus=LAV", destfile = files[[1]])
-    # 
-    # files[[2]] <- tempfile()
-    # download.file("https://cert.provinz.bz.it/services/kksSearch/image?file=LAV039-01049.jpg&mus=LAV", destfile = files[[2]])
+    files[[1]] <- tempfile()
+    download.file("https://cert.provinz.bz.it/services/kksSearch/image?file=LAV039-01048.jpg&mus=LAV", destfile = files[[1]])
+
+    files[[2]] <- tempfile()
+    download.file("https://cert.provinz.bz.it/services/kksSearch/image?file=LAV039-01049.jpg&mus=LAV", destfile = files[[2]])
     
     #files <- data.frame(datapath=files)
     
